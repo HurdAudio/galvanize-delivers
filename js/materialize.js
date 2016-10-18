@@ -1,3 +1,4 @@
+'use strict';
 /*!
  * Materialize v0.97.6 (http://materializecss.com)
  * Copyright 2014-2015 Materialize
@@ -50,6 +51,10 @@ if (typeof(jQuery) === 'undefined') {
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  *
 */
+
+$(document).ready(function(){
+      $('.parallax').parallax();
+    });
 
 // t: current time, b: begInnIng value, c: change In value, d: duration
 jQuery.easing['jswing'] = jQuery.easing['swing'];
@@ -1960,7 +1965,7 @@ $(document).ready(function(){
         }
         else {
           // Insert as text;
-          toast.innerHTML = html; 
+          toast.innerHTML = html;
         }
         // Bind hammer
         var hammerHandler = new Hammer(toast, {prevent_default: false});
@@ -2539,9 +2544,9 @@ $(document).ready(function(){
 		    var offset = $(this.hash).offset().top + 1;
 
 //          offset - 200 allows elements near bottom of page to scroll
-			
+
 	    	$('html, body').animate({ scrollTop: offset - 200 }, {duration: 400, queue: false, easing: 'easeOutCubic'});
-			
+
 		  });
 		});
 		options = options || {
@@ -2742,7 +2747,7 @@ $(document).ready(function(){
         $(this).addClass('tabbed');
         var $this = $(this);
         $this.one('blur', function(e) {
-          
+
           $(this).removeClass('tabbed');
         });
         return;
