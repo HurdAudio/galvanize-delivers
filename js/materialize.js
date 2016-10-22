@@ -52,9 +52,71 @@ if (typeof(jQuery) === 'undefined') {
  *
 */
 
-$(document).ready(function(){
-      $('.parallax').parallax();
+const salesTaxRate = 0.4;
+var subtotal = 0;
+var tax = 0;
+var total = 0;
+var nextTableRow = $('#orderBeginsHere');
+var nextPurchaseItem = $('#firstItem');
+var nextPriceItem = $('#firstItemPrice');
+
+function updateSubtotal (addPriceAmount) {
+  subtotal += addPriceAmount;
+}
+
+function updateTax () {
+  tax = subtotal * salesTaxRate;
+}
+
+function updateTotal () {
+  total = subtotal + tax;
+}
+
+function addNewRow () {
+  $('#purchaseTable').find('tr:last').prev().prev().prev().append('<tr><td></td><td></td><td></td></tr>');
+}
+
+function addNewItem (item, price, itemCell, priceCell) {
+  itemCell.text(item);
+  priceCell.text(price);
+  updateSubtotal(price);
+  updateTax();
+  updateTotal();
+  $('#subtotalData').text(subtotal);
+  $('#taxData').text(tax);
+  $('#totalData').text(total);
+  addNewRow();
+
+}
+
+$(document).ready(function() {
+    console.log( "ready!" );
+
+    $('#heavyMetalBurgers').on('click', function(event) {
+      console.log('Burgers are so METAL!');
+      var itemGoesHere = $('#purchaseTable tr:last').prev().prev().prev().find('td:first');
+      var priceGoesHere = $('#purchaseTable tr:last').prev().prev().prev().find('td:last');
+
+      addNewItem('Heavy Metal Burger', 8.99, itemGoesHere, priceGoesHere);
+
+
     });
+
+    $('#groundVeganPizza').on('click', function(event) {
+      console.log('Corn-fed vegans for the win!');
+
+    });
+
+    $('#duckFatRibs').on('click', function(event) {
+      console.log('Duck-fat is the new kale!');
+
+    });
+
+    $('#riceCream').on('click', function(event) {
+      console.log('Lactose intolerance is next to gluten-like godliness!');
+    });
+
+});
 
 // t: current time, b: begInnIng value, c: change In value, d: duration
 jQuery.easing['jswing'] = jQuery.easing['swing'];

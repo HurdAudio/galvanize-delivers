@@ -64,7 +64,7 @@
                   <p>8.99</p>
                 </div>
                 <div class="card-action">
-                  <a href="#">Add to order</a>
+                  <a id="heavyMetalBurgers" href="#">Add to order</a>
                 </div>
               </div>
               <div class="card col s12 m6">
@@ -78,15 +78,46 @@
                   <p>11.99</p>
                 </div>
                 <div class="card-action">
-                  <a href="#">Add to order</a>
+                  <a id="groundVeganPizza" href="#">Add to order</a>
                 </div>
               </div>
             </div>
+            <div class="container">
             <div class="col s6 m6">
               <span class="title"><h5>Order</h5></span>
+              <table id="purchaseTable" class="striped">
+                <tr>
+                  <th>item</th>
+                  <th></th>
+                  <th>price</th>
+                </tr>
+                <tr id="orderBeginsHere">
+                  <td id="firstItem"></td>
+                  <td></td>
+                  <td id="firstItemPrice"></td>
+                </tr>
+                <tr id="tally">
+                  <td></td>
+                  <td>subtotal</td>
+                  <td id="subtotalData">$0.00</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>tax</td>
+                  <td id="taxData">$0.00</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>total</td>
+                  <td id="totalData">$0.00</td>
+                </tr>
+
+              </table>
+
             </div>
 
 
+          </div>
           </div>
 
           <div class="row">
@@ -102,7 +133,7 @@
                  <p>14.99</p>
                </div>
                <div class="card-action">
-                 <a href="#">Add to order</a>
+                 <a id="duckFatRibs" href="#">Add to order</a>
                </div>
              </div>
              <div class="card col s12 m6">
@@ -116,7 +147,7 @@
                  <p>7.99</p>
                </div>
                <div class="card-action">
-                 <a href="#">Add to order</a>
+                 <a id="riceCream" href="#">Add to order</a>
                </div>
 
 
@@ -124,7 +155,29 @@
 
 
            </div>
+           <div class="input-field col s4">
+          <i class="material-icons pink-text prefix">account_circle</i>
+          <input id="icon_prefix" type="text" class="validate">
+          <label for="icon_prefix">Name</label>
+        </div>
+        <div class="input-field col s4">
+          <i class="material-icons pink-text prefix">phone</i>
+          <input id="icon_telephone" type="tel" class="validate">
+          <label for="icon_telephone">Telephone Number</label>
+        </div>
+        <div class="input-field col s4">
+          <i class="material-icons pink-text prefix">business</i>
+          <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
+          <label for="icon_prefix2">Address</label>
+          <div class="center-align">
+            <a class="waves-effect waves-light orange btn-large">Place Order</a>
+          </div>
+        </div>
+
+
+
          </div>
+
 
 
 
