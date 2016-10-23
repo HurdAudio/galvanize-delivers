@@ -52,7 +52,7 @@ if (typeof(jQuery) === 'undefined') {
  *
 */
 
-const salesTaxRate = 0.4;
+const salesTaxRate = 0.04;
 var subtotal = 0;
 var tax = 0;
 var total = 0;
@@ -60,32 +60,88 @@ var nextTableRow = $('#orderBeginsHere');
 var nextPurchaseItem = $('#firstItem');
 var nextPriceItem = $('#firstItemPrice');
 
+function priceToString (price) {
+  var returnString = '';
+  var hasDecimal = false;
+
+  returnString = price.toString();
+
+  for (var i = 0; i < returnString.length; i++) {
+    if (returnString[i] === '.') {
+      hasDecimal = true;
+    }
+  }
+  if (!hasDecimal) {
+    returnString = returnString + '.00';
+    return returnString;
+  }
+  if (returnString[returnString.length-1] === '.') {
+    returnString = returnString + '00';
+    return returnString;
+  }
+  if (returnString[returnString.length-2] === '.') {
+    returnString = returnString + '0';
+    return returnString;
+  }
+  return returnString;
+}
+
+function roundCents (num) {
+  var returnNum = 0;
+
+  returnNum = (Math.ceil(num * 100))/100;
+  return returnNum;
+}
+
 function updateSubtotal (addPriceAmount) {
-  subtotal += addPriceAmount;
+  var returnNum = 0;
+
+  returnNum = roundCents(subtotal + addPriceAmount);
+
+  return returnNum;
 }
 
 function updateTax () {
-  tax = subtotal * salesTaxRate;
+  var returnNum = 0;
+
+  returnNum = roundCents(subtotal * salesTaxRate);
+
+  return returnNum;
 }
 
 function updateTotal () {
-  total = subtotal + tax;
+  var returnNum = 0;
+
+  returnNum = roundCents(subtotal + tax);
+
+  return returnNum;
+
 }
 
 function addNewRow () {
-  $('#purchaseTable').find('tr:last').prev().prev().prev().append('<tr><td></td><td></td><td></td></tr>');
+  $('#purchaseTable').append('<tr><td></td><td></td><td></td></tr>');
+  $('#purchaseTable').find('tr:last').find('td:last').attr('id', 'totalData');
+  $('#purchaseTable').find('tr:last').find('td:last').prev().text('total');
+  $('#purchaseTable').find('tr:last').prev().find('td:last').attr('id', 'taxData');
+  $('#purchaseTable').find('tr:last').prev().find('td:last').prev().text('tax');
+  $('#purchaseTable').find('tr:last').prev().prev().find('td:last').attr('id', 'subtotalData');
+  $('#purchaseTable').find('tr:last').prev().prev().find('td:last').prev().text('subtotal');
+  $('#purchaseTable').find('tr:last').prev().prev().prev().find('td:last').attr('id', '');
+  $('#purchaseTable').find('tr:last').prev().prev().prev().find('td:last').text('');
+  $('#purchaseTable').find('tr:last').prev().prev().prev().find('td:last').prev().text('');
 }
 
 function addNewItem (item, price, itemCell, priceCell) {
+  addNewRow();
   itemCell.text(item);
   priceCell.text(price);
-  updateSubtotal(price);
-  updateTax();
-  updateTotal();
-  $('#subtotalData').text(subtotal);
-  $('#taxData').text(tax);
-  $('#totalData').text(total);
-  addNewRow();
+  subtotal = updateSubtotal(price);
+  tax = updateTax();
+  total = updateTotal();
+  $('#subtotalData').text(priceToString(subtotal));
+  $('#taxData').text(priceToString(tax));
+  $('#totalData').text(priceToString(total));
+
 
 }
 
@@ -104,16 +160,28 @@ $(document).ready(function() {
 
     $('#groundVeganPizza').on('click', function(event) {
       console.log('Corn-fed vegans for the win!');
+      var itemGoesHere = $('#purchaseTable tr:last').prev().prev().prev().find('td:first');
+      var priceGoesHere = $('#purchaseTable tr:last').prev().prev().prev().find('td:last');
+
+      addNewItem('Ground Vegan Pizza', 11.99, itemGoesHere, priceGoesHere);
 
     });
 
     $('#duckFatRibs').on('click', function(event) {
       console.log('Duck-fat is the new kale!');
+      var itemGoesHere = $('#purchaseTable tr:last').prev().prev().prev().find('td:first');
+      var priceGoesHere = $('#purchaseTable tr:last').prev().prev().prev().find('td:last');
+
+      addNewItem('Duck-fat Ribs', 14.99, itemGoesHere, priceGoesHere);
 
     });
 
     $('#riceCream').on('click', function(event) {
       console.log('Lactose intolerance is next to gluten-like godliness!');
+      var itemGoesHere = $('#purchaseTable tr:last').prev().prev().prev().find('td:first');
+      var priceGoesHere = $('#purchaseTable tr:last').prev().prev().prev().find('td:last');
+
+      addNewItem('Rice Cream Cake', 7.99, itemGoesHere, priceGoesHere);
     });
 
 });
