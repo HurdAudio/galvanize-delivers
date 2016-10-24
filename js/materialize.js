@@ -184,6 +184,27 @@ $(document).ready(function() {
       addNewItem('Rice Cream Cake', 7.99, itemGoesHere, priceGoesHere);
     });
 
+    $('#orderButton').on('click', function(event) {
+      var nameInput = $('#icon_prefix :input');
+      var phoneInput = $('#icon_telephone :input');
+      var addressInput = $('#icon_prefix2 :input');
+
+      if (total === 0) {
+        alert('Please add menu items to your order list.');
+      } else {
+        if (($('#icon_prefix').val()) === '') {
+          alert ('Please enter your name.');
+        } else if (($('#icon_telephone').val()) === '') {
+          alert ('Please enter your phone number.');
+        } else if (($('#icon_prefix2').val()) === '') {
+          alert('Please enter your address.');
+        } else {
+          alert('Order Confimed. Thanks for your order.');
+        }
+      }
+
+    });
+
 });
 
 // t: current time, b: begInnIng value, c: change In value, d: duration
